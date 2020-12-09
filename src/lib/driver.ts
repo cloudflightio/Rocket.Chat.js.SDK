@@ -393,8 +393,8 @@ export function respondToMessages (
       callback(err) // bubble errors back to adapter
     }
 
-    // Grab the first message in the list
-    message = message.shift()
+    // In RocketChat Server ^3.8.0, the message has changed for Object to an Array. Get only first pos of array
+    message = Array.isArray(message) ? message[0] : message
 
     // Ignore bot's own messages
     if (message.u._id === userId) return
